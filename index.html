@@ -1,57 +1,219 @@
-/* PLAYER */
-.video-area video{
-    width:660px;
-    height:454px;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🇧🇷 Buteco Premium - Rumo ao Hexa</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+    url('https://images.unsplash.com/photo-1547347298-4074fc3086f0');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:#fff;
+}
+
+/* PLAYER DA RÁDIO */
+.top-player{
+    width:100%;
     background:#000;
-    display:block;
-    margin:auto;
+    border-bottom:2px solid #FFD700;
 }
 
-/* CHAT */
-.side-panel iframe{
-    width:420px;
-    height:454px;
-}
-
-/* GRADE DE CANAIS */
-.canais-grid{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    padding:15px;
-    justify-content:center;
-}
-
-/* MINIATURAS DOS CANAIS */
-.canal-card{
-    width:80px;
-    border:1px solid #FFD700;
-    border-radius:8px;
+/* HEADER COM IMAGEM */
+.header{
+    width:100%;
+    height:420px;
     overflow:hidden;
-    cursor:pointer;
-    transition:.3s;
-    background:#111;
+    border-bottom:3px solid #FFD700;
+    box-shadow:0 0 25px rgba(255,215,0,.5);
 }
 
-.canal-card:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 10px gold;
-}
-
-.canal-card img{
-    width:80px;
-    height:55px;
+.header img{
+    width:100%;
+    height:100%;
     object-fit:cover;
     display:block;
 }
 
-.canal-card span{
-    display:block;
+/* CONTEÚDO */
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:20px;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+.box{
+    background:rgba(0,0,0,.85);
+    border:2px solid #FFD700;
+    border-radius:15px;
+    padding:10px;
+    box-shadow:0 0 25px rgba(255,215,0,.35);
+}
+
+.titulo{
     text-align:center;
     color:#FFD700;
-    font-size:10px;
-    padding:4px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
+
+video{
+    background:#000;
+    border-radius:10px;
+}
+
+/* RODAPÉ */
+.footer{
+    margin-top:20px;
+    background:rgba(0,0,0,.85);
+    border-top:2px solid #FFD700;
+    text-align:center;
+    padding:20px;
+}
+
+.footer h3{
+    color:#FFD700;
+    margin-bottom:10px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+/* RESPONSIVO */
+@media(max-width:1360px){
+
+.container{
+    flex-direction:column;
+    align-items:center;
+}
+
+video,
+.chat iframe{
+    width:100%;
+    max-width:650px;
+}
+
+.header{
+    height:auto;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PLAYER DA RÁDIO -->
+<div class="top-player">
+    <iframe
+        src="https://player.igng.com.br/player-barra/7018/000000"
+        frameborder="0"
+        width="100%"
+        height="31">
+    </iframe>
+</div>
+
+<!-- BANNER TOPO -->
+<div class="header">
+    <img src="img/header-copa.jpg" alt="Buteco Premium Copa do Mundo">
+</div>
+
+<!-- CONTEÚDO -->
+<div class="container">
+
+    <!-- TV GUAJARÁ -->
+    <div class="box">
+
+        <div class="titulo">
+            📺 TV GUAJARÁ AO VIVO
+        </div>
+
+        <video
+            id="tvguajara"
+            controls
+            autoplay
+            muted
+            playsinline
+            width="640"
+            height="400">
+        </video>
+
+    </div>
+
+    <!-- CHAT -->
+    <div class="box chat">
+
+        <div class="titulo">
+            💬 CHAT BUTECO PREMIUM
+        </div>
+
+        <iframe
+            src="https://xat.com/embed/chat.php#id=220535412&gn=Butecopremium"
+            allow="clipboard-write"
+            width="650"
+            height="486"
+            frameborder="0"
+            scrolling="no">
+        </iframe>
+
+    </div>
+
+</div>
+
+<!-- RODAPÉ -->
+<div class="footer">
+    <h3>🎵 Rádio Buteco Premium 🎵</h3>
+    <p>24 Horas no Ar • Música • Futebol • Entretenimento</p>
+    <p>🇧🇷 Copa do Mundo 2026 • Rumo ao Hexa 🇧🇷</p>
+    <p>🌐 www.butecopremium.com.br</p>
+</div>
+
+<!-- HLS PLAYER -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+
+const video = document.getElementById('tvguajara');
+
+const stream =
+'https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8';
+
+if(Hls.isSupported()){
+
+    const hls = new Hls({
+        enableWorker:true,
+        lowLatencyMode:true
+    });
+
+    hls.loadSource(stream);
+    hls.attachMedia(video);
+
+}else if(video.canPlayType('application/vnd.apple.mpegurl')){
+
+    video.src = stream;
+
+}
+
+</script>
+
+</body>
+</html>
