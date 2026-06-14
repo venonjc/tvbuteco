@@ -1,32 +1,355 @@
-<!-- MENU -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>🇧🇷 Buteco Premium - Rumo ao Hexa</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0d0d0d;
+    color:#fff;
+    user-select:none;
+}
+
+/* Rádio */
+.top-player{
+    width:100%;
+    background:#000;
+    border-bottom:2px solid #FFD700;
+}
+
+/* Banner */
+.header{
+    width:100%;
+    height:420px;
+    overflow:hidden;
+    border-bottom:3px solid #FFD700;
+}
+
+.header img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* Menu */
+.menu{
+    background:#111;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    padding:15px;
+    border-bottom:2px solid #FFD700;
+}
+
+.menu button{
+    background:linear-gradient(#FFD700,#c99b00);
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* Lista de canais */
+.lista-canais{
+    display:none;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+    background:#000;
+}
+
+.lista-canais.ativo{
+    display:flex;
+}
+
+.canal{
+    width:80px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.canal img{
+    width:80px;
+    height:55px;
+    border:2px solid #FFD700;
+    border-radius:8px;
+    object-fit:cover;
+}
+
+.canal span{
+    display:block;
+    color:#FFD700;
+    margin-top:4px;
+}
+
+/* Conteúdo */
+.container{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+.box{
+    background:#111;
+    border:2px solid #FFD700;
+    border-radius:15px;
+    padding:10px;
+}
+
+.titulo{
+    text-align:center;
+    color:#FFD700;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+video{
+    border-radius:10px;
+    background:#000;
+}
+
+/* Rodapé */
+.footer{
+    margin-top:20px;
+    text-align:center;
+    padding:20px;
+    border-top:2px solid #FFD700;
+    background:#111;
+}
+
+/* Celular */
+@media(max-width:768px){
+
+.container{
+    flex-direction:column;
+    align-items:center;
+}
+
+video{
+    width:100%!important;
+    height:auto!important;
+}
+
+.chat iframe{
+    width:100%!important;
+}
+
+.header{
+    height:auto;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Rádio -->
+<div class="top-player">
+<iframe
+src="https://player.igng.com.br/player-barra/7018/000000"
+width="100%"
+height="31"
+frameborder="0">
+</iframe>
+</div>
+
+<!-- Banner -->
+<div class="header">
+<img src="img/header-copa.jpg" alt="Buteco Premium">
+</div>
+
+<!-- Menu -->
 <div class="menu">
-    <button onclick="mostrarInicio()">Início</button>
-    <button onclick="mostrarCanais()">Canais</button>
+<button onclick="abrirInicio()">🏠 Início</button>
+<button onclick="abrirCanais()">📺 Canais</button>
 </div>
 
-<!-- LISTA DE CANAIS -->
+<!-- Canais -->
+<div id="listaCanais" class="lista-canais"></div>
 
-<div id="listaCanais" class="lista-canais">
+<!-- Conteúdo -->
+<div class="container">
 
-    <!-- CANAL 1 -->
-    <div class="canal" onclick="trocarCanal('LINK_STREAM_1')">
-        <img src="canais/1.png">
-        <span>1</span>
-    </div>
+<div class="box">
 
-    <!-- CANAL 2 -->
-    <div class="canal" onclick="trocarCanal('LINK_STREAM_2')">
-        <img src="canais/2.png">
-        <span>2</span>
-    </div>
+<div class="titulo">
+📺 PLAYER BUTECO PREMIUM
+</div>
 
-    <!-- CANAL 3 -->
-    <div class="canal" onclick="trocarCanal('LINK_STREAM_3')">
-        <img src="canais/3.png">
-        <span>3</span>
-    </div>
-
-    <!-- DUPLICAR ATÉ O 20 -->
+<video
+id="playerTv"
+controls
+autoplay
+muted
+playsinline
+width="661"
+height="463">
+</video>
 
 </div>
+
+<div class="box chat">
+
+<div class="titulo">
+💬 CHAT BUTECO PREMIUM
+</div>
+
+<iframe
+src="https://xat.com/embed/chat.php#id=220535412&gn=Butecopremium"
+width="650"
+height="486"
+frameborder="0">
+</iframe>
+
+</div>
+
+</div>
+
+<!-- Rodapé -->
+<div class="footer">
+<h3>🎵 Rádio Buteco Premium 🎵</h3>
+<p>24 Horas no Ar • Música • Futebol • Entretenimento</p>
+<p>🇧🇷 Copa do Mundo 2026 • Rumo ao Hexa 🇧🇷</p>
+<p>🌐 www.butecopremium.com.br</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+
+/* 20 canais */
+
+const canais = [];
+
+for(let i=1;i<=20;i++){
+
+canais.push({
+numero:i,
+logo:`canais/${i}.png`,
+stream:`LINK_STREAM_${i}`
+});
+
+}
+
+const lista =
+document.getElementById('listaCanais');
+
+canais.forEach(canal=>{
+
+lista.innerHTML += `
+<div class="canal"
+onclick="trocarCanal('${canal.stream}')">
+
+<img src="${canal.logo}">
+<span>${canal.numero}</span>
+
+</div>
+`;
+
+});
+
+function abrirCanais(){
+
+document
+.getElementById('listaCanais')
+.classList
+.toggle('ativo');
+
+}
+
+function abrirInicio(){
+
+document
+.getElementById('listaCanais')
+.classList
+.remove('ativo');
+
+}
+
+const video =
+document.getElementById('playerTv');
+
+let hls;
+
+function trocarCanal(url){
+
+if(hls){
+hls.destroy();
+}
+
+if(Hls.isSupported()){
+
+hls = new Hls();
+
+hls.loadSource(url);
+
+hls.attachMedia(video);
+
+}else{
+
+video.src = url;
+
+}
+
+}
+
+/* Canal inicial */
+
+trocarCanal(
+'https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8'
+);
+
+/* Bloqueios */
+
+document.addEventListener('contextmenu',e=>{
+e.preventDefault();
+});
+
+document.addEventListener('keydown',function(e){
+
+if(e.key==='F12'){
+e.preventDefault();
+}
+
+if(e.ctrlKey && e.key.toLowerCase()==='u'){
+e.preventDefault();
+}
+
+if(e.ctrlKey && e.shiftKey &&
+e.key.toLowerCase()==='i'){
+e.preventDefault();
+}
+
+if(e.ctrlKey && e.shiftKey &&
+e.key.toLowerCase()==='j'){
+e.preventDefault();
+}
+
+if(e.ctrlKey && e.shiftKey &&
+e.key.toLowerCase()==='c'){
+e.preventDefault();
+}
+
+});
+
+</script>
+
+</body>
+</html>
