@@ -1,210 +1,425 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buteco Premium</title>
+<title>Buteco Premium TV</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-font-family:Arial,sans-serif;
+font-family:Arial,Helvetica,sans-serif;
+background:url('https://xatimg.com/image/rFn6Eso8ctEL.jpg') center center/cover fixed;
 color:#fff;
-background:url('https://xatimg.com/image/rFn6Eso8ctEL.jpg') center center/cover no-repeat fixed;
 min-height:100vh;
 }
-.top-player{border-bottom:1px solid #444}
-.header img{width:100%;height:420px;object-fit:cover;display:block}
 
-.menu-fixo{position:sticky;top:0;z-index:9999;background:#111;border-top:1px solid #444;border-bottom:1px solid #444}
-.menu-fixo ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap}
-.menu-fixo li{position:relative}
-.menu-fixo a{display:block;padding:15px 20px;color:#fff;text-decoration:none}
-.menu-fixo a:hover{background:#222}
-.submenu{display:none;position:absolute;top:100%;left:0;background:#111;min-width:220px;border:1px solid #444}
-.dropdown:hover .submenu{display:block}
+.top-player{
+border-bottom:1px solid #444;
+}
 
-.lista-canais{display:none;flex-wrap:wrap;gap:10px;justify-content:center;padding:15px;background:rgba(0,0,0,.85)}
-.lista-canais.ativo{display:flex}
+.header img{
+width:100%;
+height:420px;
+object-fit:cover;
+display:block;
+}
 
-.canal{width:80px;text-align:center;cursor:pointer}
-.canal img{width:80px;height:55px;object-fit:cover;border:1px solid #555;border-radius:6px}
+.menu-fixo{
+position:sticky;
+top:0;
+z-index:9999;
+background:#111;
+border-top:1px solid #444;
+border-bottom:1px solid #444;
+}
 
-.container{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:20px}
-.box{background:rgba(20,20,20,.95);border:2px solid #333;border-radius:15px;padding:10px}
-.titulo{text-align:center;margin-bottom:10px}
+.menu-fixo ul{
+list-style:none;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
 
-.tv-container{position:relative;width:661px;height:463px}
-#tvImagem{width:100%;height:100%}
-#playerTv{position:absolute;top:33px;left:47px;width:566px;height:318px;display:none;background:#000}
+.menu-fixo li{
+position:relative;
+}
 
-.footer-menu{margin-top:30px;background:#111;border-top:2px solid #333;padding:25px;text-align:center}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-bottom:20px}
-.footer-links a{text-decoration:none;color:#fff;background:#222;padding:12px 18px;border-radius:8px}
-.footer-links a:hover{background:#444}
-.copyright{color:#999;font-size:14px}
+.menu-fixo a{
+display:block;
+padding:15px 20px;
+text-decoration:none;
+color:#fff;
+transition:.3s;
+}
+
+.menu-fixo a:hover{
+background:#222;
+}
+
+.submenu{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+background:#111;
+min-width:220px;
+border:1px solid #444;
+}
+
+.dropdown:hover .submenu{
+display:block;
+}
+
+.lista-canais{
+display:none;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+padding:15px;
+background:rgba(0,0,0,.90);
+}
+
+.lista-canais.ativo{
+display:flex;
+}
+
+.canal{
+width:90px;
+cursor:pointer;
+text-align:center;
+}
+
+.canal img{
+width:90px;
+height:60px;
+object-fit:cover;
+border-radius:6px;
+border:1px solid #555;
+}
+
+.container{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+padding:20px;
+}
+
+.box{
+background:rgba(20,20,20,.95);
+border:2px solid #333;
+border-radius:15px;
+padding:10px;
+}
+
+.titulo{
+text-align:center;
+margin-bottom:10px;
+font-size:18px;
+font-weight:bold;
+}
+
+.tv-container{
+position:relative;
+width:661px;
+height:463px;
+}
+
+#tvImagem{
+width:100%;
+height:100%;
+display:block;
+}
+
+#playerTv{
+position:absolute;
+top:33px;
+left:47px;
+width:566px;
+height:318px;
+display:none;
+border:none;
+background:#000;
+}
+
+.footer-menu{
+margin-top:30px;
+background:#111;
+border-top:2px solid #333;
+padding:25px;
+text-align:center;
+}
+
+.footer-links{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:15px;
+margin-bottom:20px;
+}
+
+.footer-links a{
+background:#222;
+padding:12px 18px;
+border-radius:8px;
+text-decoration:none;
+color:#fff;
+}
+
+.footer-links a:hover{
+background:#444;
+}
+
+.copyright{
+font-size:14px;
+color:#999;
+}
 
 @media(max-width:768px){
-.container{flex-direction:column;align-items:center}
-.chat iframe{width:100%}
+
+.header img{
+height:auto;
+}
+
+.tv-container{
+width:100%;
+height:auto;
+aspect-ratio:661/463;
+}
+
+#playerTv{
+top:7%;
+left:7%;
+width:86%;
+height:69%;
+}
+
+.chat iframe{
+width:100%;
+}
+
 }
 </style>
 </head>
+
 <body>
 
 <div class="top-player">
-<iframe src="https://player.igng.com.br/player-barra/7018/000000" width="100%" height="31" frameborder="0"></iframe>
+<iframe
+src="https://player.igng.com.br/player-barra/7018/000000"
+width="100%"
+height="31"
+frameborder="0">
+</iframe>
 </div>
 
 <div class="header">
-<img src="https://xatimg.com/image/lRgr3RKIFrEZ.png">
+<img src="https://xatimg.com/image/lRgr3RKIFrEZ.png" alt="Buteco Premium">
 </div>
 
-<div class="menu-fixo">
+<nav class="menu-fixo">
 <ul>
-<li><a href="#" onclick="abrirInicio()">Início</a></li>
+
+<li>
+<a href="#" onclick="abrirInicio()">Início</a>
+</li>
+
 <li class="dropdown">
 <a href="#">Canais</a>
+
 <ul class="submenu">
-<li><a href="#" onclick="abrirCanais()">Todos os Canais</a></li>
-</ul>
+<li>
+<a href="#" onclick="abrirCanais()">
+Todos os Canais
+</a>
 </li>
-<li><a href="SEU_LINK_STREAMING" target="_blank">Streaming</a></li>
-<li><a href="SEU_LINK_DESIGN" target="_blank">Design</a></li>
-<li><a href="SEU_LINK_WEBRADIO" target="_blank">Adquira sua Web Rádio</a></li>
-<li><a href="SEU_LINK_DOWNLOADS" target="_blank">Downloads</a></li>
-<li><a href="SEU_LINK_UTILITARIOS" target="_blank">Utilitários</a></li>
 </ul>
-</div>
+
+</li>
+
+<li>
+<a href="https://www.butecopremium.com.br" target="_blank">
+Streaming
+</a>
+</li>
+
+<li>
+<a href="https://www.butecopremium.com.br" target="_blank">
+Design
+</a>
+</li>
+
+<li>
+<a href="https://www.butecopremium.com.br" target="_blank">
+Adquira sua Web Rádio
+</a>
+</li>
+
+<li>
+<a href="https://www.butecopremium.com.br" target="_blank">
+Downloads
+</a>
+</li>
+
+<li>
+<a href="https://www.butecopremium.com.br" target="_blank">
+Utilitários
+</a>
+</li>
+
+</ul>
+</nav>
 
 <div id="listaCanais" class="lista-canais"></div>
 
 <div class="container">
+
 <div class="box">
-<div class="titulo">📺 PLAYER BUTECO PREMIUM</div>
-<div class="tv-container">
-<img id="tvImagem" src="https://xatimg.com/image/OYa6tG3vv9xU.png">
-<video id="playerTv" controls autoplay muted playsinline></video>
+
+<div class="titulo">
+📺 PLAYER BUTECO PREMIUM
 </div>
+
+<div class="tv-container">
+
+<img
+id="tvImagem"
+src="https://xatimg.com/image/OYa6tG3vv9xU.png"
+alt="TV">
+
+<iframe
+id="playerTv"
+allowfullscreen>
+</iframe>
+
+</div>
+
 </div>
 
 <div class="box chat">
-<div class="titulo">💬 CHAT BUTECO PREMIUM</div>
-<iframe src="https://xat.com/embed/chat.php#id=220535412&gn=Butecopremium" width="650" height="486" frameborder="0"></iframe>
+
+<div class="titulo">
+💬 CHAT BUTECO PREMIUM
 </div>
+
+<iframe
+src="https://xat.com/embed/chat.php#id=220535412&gn=Butecopremium"
+width="650"
+height="486"
+frameborder="0">
+</iframe>
+
+</div>
+
 </div>
 
 <footer class="footer-menu">
+
 <div class="footer-links">
-<a href="SEU_LINK_STREAMING" target="_blank">Streaming</a>
-<a href="SEU_LINK_WEBRADIO" target="_blank">Adquira sua Web Rádio</a>
-<a href="SEU_LINK_DOWNLOADS" target="_blank">Downloads</a>
-<a href="SEU_LINK_UTILITARIOS" target="_blank">Utilitários</a>
-<a href="SEU_LINK_DESIGN" target="_blank">Design</a>
+
+<a href="#">Streaming</a>
+<a href="#">Adquira sua Web Rádio</a>
+<a href="#">Downloads</a>
+<a href="#">Utilitários</a>
+<a href="#">Design</a>
+
 </div>
+
 <div class="copyright">
 © 2026 Buteco Premium - Todos os Direitos Reservados<br>
 Criado por Buteco Premium
 </div>
+
 </footer>
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <script>
+
 const lista = document.getElementById("listaCanais");
-const video = document.getElementById("playerTv");
+const player = document.getElementById("playerTv");
 
-let hls = null;
+const canais = [
 
-// CRIA 15 CANAIS USANDO O MESMO STREAM
-for(let i = 1; i <= 15; i++){
+{
+nome:"TV Buteco",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
+},
 
-    lista.innerHTML += `
-        <div class="canal" onclick="trocarCanal('https://www.youtube.com/embed/ioH5k4ss_tY?si=uzanepu28qP1Zvyn')">
-            <img
-                src="canais/${i}.png"
-                alt="Canal ${i}"
-                onerror="this.src='https://xatimg.com/image/RJpIrVrPm6TG.png'">
-            <div>Canal ${i}</div>
-        </div>
-    `;
+{
+nome:"Canal 2",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
+},
+
+{
+nome:"Canal 3",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
 }
 
+];
+
+canais.forEach(canal=>{
+
+lista.innerHTML += `
+<div class="canal"
+onclick="trocarCanal('${canal.url}')">
+
+<img src="${canal.logo}" alt="${canal.nome}">
+
+<div>${canal.nome}</div>
+
+</div>
+`;
+
+});
+
 function abrirCanais(){
-    document.getElementById("listaCanais").classList.toggle("ativo");
+lista.classList.toggle("ativo");
 }
 
 function abrirInicio(){
 
-    document.getElementById("listaCanais").classList.remove("ativo");
+lista.classList.remove("ativo");
 
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
-
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
-
-    video.style.display = "none";
+player.src = "";
+player.style.display = "none";
 }
 
 function trocarCanal(url){
 
-    video.style.display = "block";
+player.style.display = "block";
+player.src = url;
 
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
-
-    if(Hls.isSupported()){
-
-        hls = new Hls({
-            enableWorker:true,
-            lowLatencyMode:true
-        });
-
-        hls.loadSource(url);
-        hls.attachMedia(video);
-
-        hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-            video.play();
-        });
-
-    }else if(video.canPlayType("application/vnd.apple.mpegurl")){
-
-        video.src = url;
-        video.play();
-
-    }else{
-
-        alert("Seu navegador não suporta HLS.");
-
-    }
 }
 
-// BLOQUEIOS BÁSICOS
-document.addEventListener("contextmenu", function(e){
-    e.preventDefault();
+document.addEventListener("contextmenu",function(e){
+e.preventDefault();
 });
 
-document.addEventListener("keydown", function(e){
+document.addEventListener("keydown",function(e){
 
-    if(
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey &&
-        ["I","J","C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey &&
-        ["U","S"].includes(e.key.toUpperCase()))
-    ){
-        e.preventDefault();
-    }
+if(
+e.key==="F12" ||
+(e.ctrlKey && e.shiftKey &&
+["I","J","C"].includes(e.key.toUpperCase())) ||
+(e.ctrlKey &&
+["U","S"].includes(e.key.toUpperCase()))
+){
+e.preventDefault();
+}
 
 });
+
 </script>
-```
 
 </body>
 </html>
+```
