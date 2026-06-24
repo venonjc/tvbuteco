@@ -111,7 +111,7 @@ Criado por Buteco Premium
 <script>
 const lista=document.getElementById('listaCanais');
 for(let i=1;i<=20;i++){
-lista.innerHTML+=`<div class="canal" onclick="trocarCanal('LINK_STREAM_${i}')"><img src="canais/${i}.png"><div>${i}</div></div>`;
+lista.innerHTML+=`<div class="canal" onclick="trocarCanal('https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8${i}')"><img src="canais/${i}.png"><div>${i}</div></div>`;
 }
 function abrirCanais(){document.getElementById('listaCanais').classList.toggle('ativo');}
 function abrirInicio(){document.getElementById('listaCanais').classList.remove('ativo');document.getElementById('playerTv').style.display='none';}
