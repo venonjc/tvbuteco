@@ -339,43 +339,96 @@ Criado por Buteco Premium
 
 </footer>
 
+```html
 <script>
 
 const lista = document.getElementById("listaCanais");
 const player = document.getElementById("playerTv");
 
 const canais = [
-
 {
-nome:"TV Buteco",
+nome:"Canal 1",
 logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?si=ERm9cy5UA9cDiAdj"
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
 },
-
 {
 nome:"Canal 2",
 logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?si=ERm9cy5UA9cDiAdj"
+url:""
 },
-
 {
 nome:"Canal 3",
 logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?si=ERm9cy5UA9cDiAdj"
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
+},
+{
+nome:"Canal 4",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 5",
+logo:"https://www.cxtv.com.br/img/Tvs/Logo/webp-m/8a9b94395122af853c4be9b40d2fe153.webp",
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
+},
+{
+nome:"Canal 6",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 7",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 8",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 9",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 10",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 11",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 12",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 13",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 14",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:""
+},
+{
+nome:"Canal 15",
+logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
+url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
 }
-
 ];
 
-canais.forEach(canal=>{
+canais.forEach(canal => {
 
 lista.innerHTML += `
-<div class="canal"
-onclick="trocarCanal('${canal.url}')">
-
+<div class="canal" onclick="trocarCanal('${canal.url}')">
 <img src="${canal.logo}" alt="${canal.nome}">
-
 <div>${canal.nome}</div>
-
 </div>
 `;
 
@@ -391,23 +444,29 @@ lista.classList.remove("ativo");
 
 player.src = "";
 player.style.display = "none";
+
 }
 
 function trocarCanal(url){
+
+if(!url){
+alert("Canal em manutenção.");
+return;
+}
 
 player.style.display = "block";
 player.src = url;
 
 }
 
-document.addEventListener("contextmenu",function(e){
+document.addEventListener("contextmenu", function(e){
 e.preventDefault();
 });
 
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown", function(e){
 
 if(
-e.key==="F12" ||
+e.key === "F12" ||
 (e.ctrlKey && e.shiftKey &&
 ["I","J","C"].includes(e.key.toUpperCase())) ||
 (e.ctrlKey &&
@@ -419,7 +478,6 @@ e.preventDefault();
 });
 
 </script>
-
 </body>
 </html>
 ```
