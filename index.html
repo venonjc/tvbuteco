@@ -107,104 +107,20 @@ Criado por Buteco Premium
 </div>
 </footer>
 
-```html
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <script>
-const lista = document.getElementById("listaCanais");
-const video = document.getElementById("playerTv");
-
-let hls = null;
-
-// CRIA 20 CANAIS USANDO O MESMO STREAM
-for(let i = 1; i <= 25; i++){
-
-    lista.innerHTML += `
-        <div class="canal" onclick="trocarCanal('https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8')">
-            <img
-                src="https://xatimg.com/image/bK5d89cKN0Q6.png"
-                alt="Canal ${i}"
-                onerror="this.src='https://via.placeholder.com/80x55?text=TV'">
-            <div>Canal ${i}</div>
-        </div>
-    `;
+const lista=document.getElementById('listaCanais');
+for(let i=1;i<=20;i++){
+lista.innerHTML+=`<div class="canal" onclick="trocarCanal('https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8${i}')"><img src="canais/${i}.png"><div>${i}</div></div>`;
 }
-
-function abrirCanais(){
-    document.getElementById("listaCanais").classList.toggle("ativo");
-}
-
-function abrirInicio(){
-
-    document.getElementById("listaCanais").classList.remove("ativo");
-
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
-
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
-
-    video.style.display = "none";
-}
-
+function abrirCanais(){document.getElementById('listaCanais').classList.toggle('ativo');}
+function abrirInicio(){document.getElementById('listaCanais').classList.remove('ativo');document.getElementById('playerTv').style.display='none';}
+const video=document.getElementById('playerTv'); let hls;
 function trocarCanal(url){
-
-    video.style.display = "block";
-
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
-
-    if(Hls.isSupported()){
-
-        hls = new Hls({
-            enableWorker:true,
-            lowLatencyMode:true
-        });
-
-        hls.loadSource(url);
-        hls.attachMedia(video);
-
-        hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-            video.play();
-        });
-
-    }else if(video.canPlayType("application/vnd.apple.mpegurl")){
-
-        video.src = url;
-        video.play();
-
-    }else{
-
-        alert("Seu navegador não suporta HLS.");
-
-    }
+video.style.display='block';
+if(hls){hls.destroy();}
+if(Hls.isSupported()){hls=new Hls();hls.loadSource(url);hls.attachMedia(video);} else {video.src=url;}
 }
-
-// BLOQUEIOS BÁSICOS
-document.addEventListener("contextmenu", function(e){
-    e.preventDefault();
-});
-
-document.addEventListener("keydown", function(e){
-
-    if(
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey &&
-        ["I","J","C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey &&
-        ["U","S"].includes(e.key.toUpperCase()))
-    ){
-        e.preventDefault();
-    }
-
-});
 </script>
-```
-
 </body>
 </html>
