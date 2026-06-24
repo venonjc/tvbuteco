@@ -1,140 +1,210 @@
-```html
-<script>
-
-const lista = document.getElementById("listaCanais");
-const player = document.getElementById("playerTv");
-
-const canais = [
-{
-nome:"Canal 1",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
-},
-{
-nome:"Canal 2",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 3",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
-},
-{
-nome:"Canal 4",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 5",
-logo:"https://www.cxtv.com.br/img/Tvs/Logo/webp-m/8a9b94395122af853c4be9b40d2fe153.webp",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
-},
-{
-nome:"Canal 6",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 7",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 8",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 9",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 10",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 11",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 12",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 13",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 14",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:""
-},
-{
-nome:"Canal 15",
-logo:"https://xatimg.com/image/RJpIrVrPm6TG.png",
-url:"https://www.youtube.com/embed/ioH5k4ss_tY?autoplay=1"
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buteco Premium</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+color:#fff;
+background:url('https://xatimg.com/image/rFn6Eso8ctEL.jpg') center center/cover no-repeat fixed;
+min-height:100vh;
 }
-];
+.top-player{border-bottom:1px solid #444}
+.header img{width:100%;height:420px;object-fit:cover;display:block}
 
-canais.forEach(canal => {
+.menu-fixo{position:sticky;top:0;z-index:9999;background:#111;border-top:1px solid #444;border-bottom:1px solid #444}
+.menu-fixo ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap}
+.menu-fixo li{position:relative}
+.menu-fixo a{display:block;padding:15px 20px;color:#fff;text-decoration:none}
+.menu-fixo a:hover{background:#222}
+.submenu{display:none;position:absolute;top:100%;left:0;background:#111;min-width:220px;border:1px solid #444}
+.dropdown:hover .submenu{display:block}
 
-lista.innerHTML += `
-<div class="canal" onclick="trocarCanal('${canal.url}')">
-<img src="${canal.logo}" alt="${canal.nome}">
-<div>${canal.nome}</div>
+.lista-canais{display:none;flex-wrap:wrap;gap:10px;justify-content:center;padding:15px;background:rgba(0,0,0,.85)}
+.lista-canais.ativo{display:flex}
+
+.canal{width:80px;text-align:center;cursor:pointer}
+.canal img{width:80px;height:55px;object-fit:cover;border:1px solid #555;border-radius:6px}
+
+.container{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:20px}
+.box{background:rgba(20,20,20,.95);border:2px solid #333;border-radius:15px;padding:10px}
+.titulo{text-align:center;margin-bottom:10px}
+
+.tv-container{position:relative;width:661px;height:463px}
+#tvImagem{width:100%;height:100%}
+#playerTv{position:absolute;top:33px;left:47px;width:566px;height:318px;display:none;background:#000}
+
+.footer-menu{margin-top:30px;background:#111;border-top:2px solid #333;padding:25px;text-align:center}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-bottom:20px}
+.footer-links a{text-decoration:none;color:#fff;background:#222;padding:12px 18px;border-radius:8px}
+.footer-links a:hover{background:#444}
+.copyright{color:#999;font-size:14px}
+
+@media(max-width:768px){
+.container{flex-direction:column;align-items:center}
+.chat iframe{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="top-player">
+<iframe src="https://player.igng.com.br/player-barra/7018/000000" width="100%" height="31" frameborder="0"></iframe>
 </div>
-`;
 
-});
+<div class="header">
+<img src="https://xatimg.com/image/lRgr3RKIFrEZ.png">
+</div>
+
+<div class="menu-fixo">
+<ul>
+<li><a href="#" onclick="abrirInicio()">Início</a></li>
+<li class="dropdown">
+<a href="#">Canais</a>
+<ul class="submenu">
+<li><a href="#" onclick="abrirCanais()">Todos os Canais</a></li>
+</ul>
+</li>
+<li><a href="SEU_LINK_STREAMING" target="_blank">Streaming</a></li>
+<li><a href="SEU_LINK_DESIGN" target="_blank">Design</a></li>
+<li><a href="SEU_LINK_WEBRADIO" target="_blank">Adquira sua Web Rádio</a></li>
+<li><a href="SEU_LINK_DOWNLOADS" target="_blank">Downloads</a></li>
+<li><a href="SEU_LINK_UTILITARIOS" target="_blank">Utilitários</a></li>
+</ul>
+</div>
+
+<div id="listaCanais" class="lista-canais"></div>
+
+<div class="container">
+<div class="box">
+<div class="titulo">📺 PLAYER BUTECO PREMIUM</div>
+<div class="tv-container">
+<img id="tvImagem" src="https://xatimg.com/image/OYa6tG3vv9xU.png">
+<video id="playerTv" controls autoplay muted playsinline></video>
+</div>
+</div>
+
+<div class="box chat">
+<div class="titulo">💬 CHAT BUTECO PREMIUM</div>
+<iframe src="https://xat.com/embed/chat.php#id=220535412&gn=Butecopremium" width="650" height="486" frameborder="0"></iframe>
+</div>
+</div>
+
+<footer class="footer-menu">
+<div class="footer-links">
+<a href="SEU_LINK_STREAMING" target="_blank">Streaming</a>
+<a href="SEU_LINK_WEBRADIO" target="_blank">Adquira sua Web Rádio</a>
+<a href="SEU_LINK_DOWNLOADS" target="_blank">Downloads</a>
+<a href="SEU_LINK_UTILITARIOS" target="_blank">Utilitários</a>
+<a href="SEU_LINK_DESIGN" target="_blank">Design</a>
+</div>
+<div class="copyright">
+© 2026 Buteco Premium - Todos os Direitos Reservados<br>
+Criado por Buteco Premium
+</div>
+</footer>
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+const lista = document.getElementById("listaCanais");
+const video = document.getElementById("playerTv");
+
+let hls = null;
+
+// CRIA 15 CANAIS USANDO O MESMO STREAM
+for(let i = 1; i <= 15; i++){
+
+    lista.innerHTML += `
+        <div class="canal" onclick="trocarCanal('https://www.youtube.com/embed/ioH5k4ss_tY?si=uzanepu28qP1Zvyn')">
+            <img
+                src="canais/${i}.png"
+                alt="Canal ${i}"
+                onerror="this.src='https://xatimg.com/image/RJpIrVrPm6TG.png'">
+            <div>Canal ${i}</div>
+        </div>
+    `;
+}
 
 function abrirCanais(){
-lista.classList.toggle("ativo");
+    document.getElementById("listaCanais").classList.toggle("ativo");
 }
 
 function abrirInicio(){
 
-lista.classList.remove("ativo");
+    document.getElementById("listaCanais").classList.remove("ativo");
 
-player.src = "";
-player.style.display = "none";
+    if(hls){
+        hls.destroy();
+        hls = null;
+    }
 
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+
+    video.style.display = "none";
 }
 
 function trocarCanal(url){
 
-if(!url){
-alert("Canal em manutenção.");
-return;
+    video.style.display = "block";
+
+    if(hls){
+        hls.destroy();
+        hls = null;
+    }
+
+    if(Hls.isSupported()){
+
+        hls = new Hls({
+            enableWorker:true,
+            lowLatencyMode:true
+        });
+
+        hls.loadSource(url);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED,()=>{
+            video.play();
+        });
+
+    }else if(video.canPlayType("application/vnd.apple.mpegurl")){
+
+        video.src = url;
+        video.play();
+
+    }else{
+
+        alert("Seu navegador não suporta HLS.");
+
+    }
 }
 
-player.style.display = "block";
-player.src = url;
-
-}
-
+// BLOQUEIOS BÁSICOS
 document.addEventListener("contextmenu", function(e){
-e.preventDefault();
+    e.preventDefault();
 });
 
 document.addEventListener("keydown", function(e){
 
-if(
-e.key === "F12" ||
-(e.ctrlKey && e.shiftKey &&
-["I","J","C"].includes(e.key.toUpperCase())) ||
-(e.ctrlKey &&
-["U","S"].includes(e.key.toUpperCase()))
-){
-e.preventDefault();
-}
+    if(
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey &&
+        ["I","J","C"].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey &&
+        ["U","S"].includes(e.key.toUpperCase()))
+    ){
+        e.preventDefault();
+    }
 
 });
-
 </script>
 ```
+
+</body>
+</html>
